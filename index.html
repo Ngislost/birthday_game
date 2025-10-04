@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎁 A Magical Letter For You 🎉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        background: #0b0c14;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z"></path></svg>') 12 12, auto;
+    }
+    
+    #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+    #container { position: relative; perspective: 1500px; }
+
+    /* --- ENHANCED Constellation Game Styling --- */
+    #game-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; transition: opacity 1s ease-in-out; }
+    #game-instructions { position: absolute; top: 15%; left: 50%; transform: translateX(-50%); color: #fff; font-size: 22px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.7); text-align: center; }
+    .constellation-star { position: fixed; font-size: 30px; color: #fff; text-shadow: 0 0 10px #fff; cursor: pointer; transition: transform 0.2s, color 0.2s, text-shadow 0.2s; transform-origin: center; z-index: 22; }
+    .constellation-star.active { color: #ffee00; transform: scale(1.5); text-shadow: 0 0 15px #ffee00, 0 0 30px #ffee00; }
+    .constellation-star.success { color: #00ffaa; text-shadow: 0 0 15px #00ffaa, 0 0 30px #00ffaa; }
+    .wrong-shake { animation: shake 0.5s ease; }
+    @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-10px);} 75% {transform: translateX(10px);} }
+    
+    /* --- NEW: SVG Line Styling --- */
+    #constellation-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 21; pointer-events: none; }
+    #constellation-lines line { stroke: rgba(0, 255, 170, 0.7); stroke-width: 2; stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw-line 0.5s ease-out forwards; }
+    @keyframes draw-line { to { stroke-dashoffset: 0; } }
+    #constellation-lines.win-glow line { stroke: #fff; stroke-width: 3; filter: drop-shadow(0 0 10px #fff); transition: all 0.5s; }
+
+    /* --- Envelope Styling (Unchanged) --- */
+    #envelope { position: relative; width: 300px; height: 200px; background-color: #f4b4c4; background-image: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.08"%3E%3Cpath opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); border-radius: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.1); transition: all 0.4s ease-in-out; animation: envelope-pulse 2.5s infinite ease-in-out; }
+    #envelope:hover { transform: scale(1.05); box-shadow: 0 8px 30px rgba(230, 57, 70, 0.4), inset 0 0 15px rgba(0,0,0,0.1); }
+    #envelope::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0; border-top: 100px solid transparent; border-right: 150px solid #f8c8d5; border-bottom: 100px solid #f8c8d5; border-left: 150px solid #f0a2b6; border-radius: 10px; }
+    #envelope::after { content: ''; position: absolute; top: 0; left: 0; width: 300px; height: 100px; background: linear-gradient(170deg, transparent 49.5%, #0002 49.5%, #0002 50.5%, transparent 50.5%), #f4b4c4; border-bottom: 1px solid rgba(0,0,0,0.1); border-radius: 10px 10px 0 0; transform-origin: top; transition: transform 0.4s ease-in-out; }
+    #envelope:hover::after { transform: rotateX(-15deg); }
+    .heart-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: #c9184a; border-radius: 50%; box-shadow: 2px 2px 5px rgba(0,0,0,0.3), inset 0 0 5px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; font-size: 28px; color: #ff4d6d; text-shadow: 0 0 5px rgba(0,0,0,0.3); z-index: 10; }
+    @keyframes envelope-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+    #envelope.open {  transform: scale(1.5);  opacity: 0;  }
+
+    /* Nebula Message Styling (Unchanged) */
+    #messageCard { opacity: 0; visibility: hidden; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; max-width: 90vw; text-align: center; pointer-events: none; z-index: 5; transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
+    #messageCard.visible { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); pointer-events: all; }
+    #messageCard::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at 50% 50%, rgba(255, 180, 220, 0.25) 0%, rgba(255, 180, 220, 0) 60%), radial-gradient(ellipse at 40% 60%, rgba(180, 200, 255, 0.2) 0%, rgba(180, 200, 255, 0) 70%); filter: blur(40px); border-radius: 50%; z-index: -1; }
+    #messageCard h1 { font-family: 'Great Vibes', cursive; font-size: 60px; color: #fff; margin: 0 0 30px 0; font-weight: 100; text-shadow: 0 0 5px rgba(255,255,255,0.7), 0 0 20px rgba(255, 150, 200, 0.7); animation: pulse-glow 3s infinite ease-in-out; }
+    #messageCard p { font-size: 20px; line-height: 1.8; margin: 20px 0; color: #f0f0f0; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+    #finalMessage { font-family: 'Great Vibes', cursive; font-size: 48px; color: #fff; font-weight: bold; margin-top: 35px; text-shadow: 0 0 10px rgba(255, 100, 150, 0.5), 0 0 25px rgba(255, 100, 150, 0.5); }
+    @keyframes pulse-glow { 0%, 100% { text-shadow: 0 0 5px rgba(255,255,255,0.7), 0 0 20px rgba(255, 150, 200, 0.7); } 50% { text-shadow: 0 0 10px rgba(255,255,255,1), 0 0 35px rgba(255, 150, 200, 1); } }
+    .shimmer { background: linear-gradient(90deg, #fff, #ffc7e3, #fff); -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer-animation 4s infinite; background-size: 200% 100%; }
+    @keyframes shimmer-animation { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    #fireworks { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div id="game-container">
+    <div id="game-instructions">Watch the stars and repeat the pattern...</div>
+    <svg id="constellation-lines"></svg>
+</div>
+
+<div id="container" style="visibility: hidden; opacity: 0; transition: opacity 1s 0.5s, visibility 1s 0.5s;">
+    <div id="envelope"><div class="heart-icon">❤️</div></div>
+    <div id="messageCard">
+        <h1>A Special Letter For You</h1>
+        <p id="decodedMessage"></p>
+        <p id="bonusMessage"></p>
+        <p id="finalMessage"></p>
+    </div>
+</div>
+
+<canvas id="fireworks"></canvas>
+<audio id="background-music" loop src="https://cdn.pixabay.com/audio/2022/11/22/audio_2c55137648.mp3"></audio>
+<audio id="reveal-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_5174825a37.mp3"></audio>
+<audio id="star-sound" src="https://cdn.pixabay.com/audio/2022/03/10/audio_a851759c25.mp3"></audio>
+<audio id="success-sound" src="https://cdn.pixabay.com/audio/2022/03/24/audio_7833010b86.mp3"></audio>
+<audio id="fail-sound" src="https://cdn.pixabay.com/audio/2021/08/04/audio_a1329c3b88.mp3"></audio>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2/dist/fireworks.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+    const mainContainer = document.getElementById('container');
+    const envelope = document.getElementById("envelope");
+    const messageCard = document.getElementById("messageCard");
+    const bgMusic = document.getElementById("background-music");
+    const revealSound = document.getElementById("reveal-sound");
+    const starSound = document.getElementById("star-sound");
+    const successSound = document.getElementById("success-sound");
+    const failSound = document.getElementById("fail-sound");
+    
+    bgMusic.volume = 0.3; revealSound.volume = 0.5;
+    starSound.volume = 0.4; successSound.volume = 0.6; failSound.volume = 0.4;
+
+    // --- ENHANCED Constellation Game Logic ---
+    const gameContainer = document.getElementById('game-container');
+    const instructions = document.getElementById('game-instructions');
+    const lineSvg = document.getElementById('constellation-lines');
+    
+    const levels = [
+        { // Level 1
+            pattern: [2, 0, 3, 1],
+            positions: [ {top: '30%', left: '50%'}, {top: '50%', left: '70%'}, {top: '70%', left: '50%'}, {top: '50%', left: '30%'} ]
+        },
+        { // Level 2
+            pattern: [4, 0, 2, 1, 3],
+            positions: [ {top: '25%', left: '50%'}, {top: '45%', left: '35%'}, {top: '45%', left: '65%'}, {top: '70%', left: '40%'}, {top: '70%', left: '60%'} ]
+        }
+    ];
+    let currentLevel = 0;
+    let userClickPattern = [];
+    let canClick = false;
+    let hasInteracted = false;
+    const starElements = [];
+
+    function initConstellationGame() {
+        instructions.textContent = `Level ${currentLevel + 1}`;
+        
+        // Clear old stars and lines
+        starElements.forEach(star => star.remove());
+        starElements.length = 0;
+        lineSvg.innerHTML = '';
+
+        const level = levels[currentLevel];
+        for (let i = 0; i < level.positions.length; i++) {
+            const star = document.createElement('div');
+            star.className = 'constellation-star';
+            star.textContent = '✦';
+            star.dataset.id = i;
+            star.style.top = level.positions[i].top;
+            star.style.left = level.positions[i].left;
+            star.addEventListener('click', handleStarClick);
+            gameContainer.appendChild(star);
+            starElements.push(star);
+        }
+        setTimeout(playPattern, 2000);
+    }
+
+    function playPattern() {
+        canClick = false;
+        instructions.textContent = "Watch carefully...";
+        userClickPattern = [];
+        lineSvg.innerHTML = '';
+        const pattern = levels[currentLevel].pattern;
+        
+        pattern.forEach((starIndex, sequenceIndex) => {
+            setTimeout(() => {
+                const star = starElements[starIndex];
+                star.classList.add('active');
+                if (hasInteracted) { starSound.currentTime = 0; starSound.play(); }
+                setTimeout(() => star.classList.remove('active'), 400);
+            }, sequenceIndex * 800);
+        });
+
+        setTimeout(() => {
+            instructions.textContent = "Now, repeat the pattern...";
+            canClick = true;
+        }, pattern.length * 800);
+    }
+
+    function handleStarClick(event) {
+        if (!canClick) return;
+
+        if (!hasInteracted) {
+            bgMusic.play().catch(e => console.error("BG music failed:", e));
+            hasInteracted = true;
+        }
+
+        const clickedId = parseInt(event.target.dataset.id);
+        const pattern = levels[currentLevel].pattern;
+        const currentStep = userClickPattern.length;
+
+        if (clickedId === pattern[currentStep]) {
+            starSound.currentTime = 0;
+            starSound.play();
+            userClickPattern.push(clickedId);
+            event.target.classList.add('success');
+            
+            // Draw line to previous star
+            if (currentStep > 0) {
+                const prevStarId = userClickPattern[currentStep - 1];
+                const prevStar = starElements.find(s => parseInt(s.dataset.id) === prevStarId);
+                const currentStar = event.target;
+                drawLine(prevStar, currentStar);
+            }
+
+            if (userClickPattern.length === pattern.length) {
+                levelComplete();
+            }
+        } else {
+            failSound.play();
+            gameContainer.classList.add('wrong-shake');
+            instructions.textContent = "Oops! Let's try again...";
+            setTimeout(() => {
+                gameContainer.classList.remove('wrong-shake');
+                playPattern();
+            }, 1500);
+        }
+    }
+
+    function drawLine(star1, star2) {
+        const rect1 = star1.getBoundingClientRect();
+        const rect2 = star2.getBoundingClientRect();
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', rect1.left + rect1.width / 2);
+        line.setAttribute('y1', rect1.top + rect1.height / 2);
+        line.setAttribute('x2', rect2.left + rect2.width / 2);
+        line.setAttribute('y2', rect2.top + rect2.height / 2);
+        lineSvg.appendChild(line);
+    }
+
+    function levelComplete() {
+        canClick = false;
+        
+        if (currentLevel < levels.length - 1) {
+            instructions.textContent = `Level ${currentLevel + 1} Clear!`;
+            successSound.play();
+            currentLevel++;
+            setTimeout(initConstellationGame, 2000); // Start next level
+        } else {
+            winGame(); // All levels completed
+        }
+    }
+
+    function winGame() {
+        instructions.textContent = "You did it!";
+        successSound.play();
+        lineSvg.classList.add('win-glow');
+        starElements.forEach(star => star.classList.add('success'));
+
+        setTimeout(() => {
+            gameContainer.style.opacity = '0';
+            gameContainer.style.display = 'none';
+            mainContainer.style.visibility = 'visible';
+            mainContainer.style.opacity = '1';
+        }, 2000);
+    }
+
+    initConstellationGame();
+
+    envelope.addEventListener("click", () => {
+        revealSound.play();
+        envelope.classList.add("open");
+        setTimeout(() => { 
+            messageCard.classList.add("visible"); 
+            startMessageSequence(); 
+        }, 400);
+    });
+    
+    // Starfield Logic (condensed for brevity)
+    const starfield = document.getElementById('starfield');
+    const ctx = starfield.getContext('2d');
+    function resizeCanvas() { starfield.width = window.innerWidth; starfield.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+    const numStars = 800; const stars = [];
+    for (let i = 0; i < numStars; i++) { stars.push({ x: (Math.random() - 0.5) * starfield.width, y: (Math.random() - 0.5) * starfield.height, z: Math.random() * starfield.width }); }
+    let speed = 0.5;
+    function updateAndDrawStars() {
+        ctx.clearRect(0, 0, starfield.width, starfield.height);
+        for (let i = 0; i < numStars; i++) {
+            let star = stars[i]; star.z -= speed; if (star.z <= 0) { star.z = starfield.width; }
+            const k = 128 / star.z; const px = star.x * k + starfield.width / 2; const py = star.y * k + starfield.height / 2;
+            if (px >= 0 && px < starfield.width && py >= 0 && py < starfield.height) {
+                const size = (1 - star.z / starfield.width) * 3; const shade = parseInt((1 - star.z / starfield.width) * 255);
+                ctx.fillStyle = `rgb(${shade},${shade},${shade})`; ctx.fillRect(px, py, size, size);
+            }
+        }
+        requestAnimationFrame(updateAndDrawStars);
+    }
+    updateAndDrawStars();
+
+    const loveMessages = ["Every moment with you is my favorite memory 🌟", "Happy Birthday, my love! You are my forever hero 🎉", "You make my heart smile every single day ❤️"];
+    function startMessageSequence() {
+        new Typed('#decodedMessage', { strings: ["My Dearest,^1000 I couldn't let this day pass without telling you..."], typeSpeed: 50, showCursor: false });
+        setTimeout(() => { new Typed('#bonusMessage', { strings: [loveMessages[Math.floor(Math.random() * loveMessages.length)]], typeSpeed: 50, showCursor: false, onComplete: (self) => { self.el.classList.add('shimmer'); } }); confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } }); }, 4000);
+        setTimeout(() => { new Typed('#finalMessage', { strings: ["Happy Birthday, My Love! ❤️"], typeSpeed: 70, showCursor: false, onComplete: (self) => { self.el.classList.add('shimmer'); } }); const fireworks = new Fireworks(document.getElementById('fireworks')); fireworks.start(); }, 7000);
+    }
+</script>
+</body>
+</html>
