@@ -24,7 +24,7 @@
     #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
     #container { position: relative; perspective: 1500px; }
 
-    /* --- ENHANCED Constellation Game Styling --- */
+   
     #game-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; transition: opacity 1s ease-in-out; }
     #game-instructions { position: absolute; top: 15%; left: 50%; transform: translateX(-50%); color: #fff; font-size: 22px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.7); text-align: center; }
     .constellation-star { position: fixed; font-size: 30px; color: #fff; text-shadow: 0 0 10px #fff; cursor: pointer; transition: transform 0.2s, color 0.2s, text-shadow 0.2s; transform-origin: center; z-index: 22; }
@@ -33,13 +33,13 @@
     .wrong-shake { animation: shake 0.5s ease; }
     @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-10px);} 75% {transform: translateX(10px);} }
     
-    /* --- NEW: SVG Line Styling --- */
+   
     #constellation-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 21; pointer-events: none; }
     #constellation-lines line { stroke: rgba(0, 255, 170, 0.7); stroke-width: 2; stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw-line 0.5s ease-out forwards; }
     @keyframes draw-line { to { stroke-dashoffset: 0; } }
     #constellation-lines.win-glow line { stroke: #fff; stroke-width: 3; filter: drop-shadow(0 0 10px #fff); transition: all 0.5s; }
 
-    /* --- Envelope Styling (Unchanged) --- */
+   
     #envelope { position: relative; width: 300px; height: 200px; background-color: #f4b4c4; background-image: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.08"%3E%3Cpath opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); border-radius: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.1); transition: all 0.4s ease-in-out; animation: envelope-pulse 2.5s infinite ease-in-out; }
     #envelope:hover { transform: scale(1.05); box-shadow: 0 8px 30px rgba(230, 57, 70, 0.4), inset 0 0 15px rgba(0,0,0,0.1); }
     #envelope::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0; border-top: 100px solid transparent; border-right: 150px solid #f8c8d5; border-bottom: 100px solid #f8c8d5; border-left: 150px solid #f0a2b6; border-radius: 10px; }
@@ -49,7 +49,7 @@
     @keyframes envelope-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
     #envelope.open {  transform: scale(1.5);  opacity: 0;  }
 
-    /* Nebula Message Styling (Unchanged) */
+    
     #messageCard { opacity: 0; visibility: hidden; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; max-width: 90vw; text-align: center; pointer-events: none; z-index: 5; transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
     #messageCard.visible { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); pointer-events: all; }
     #messageCard::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at 50% 50%, rgba(255, 180, 220, 0.25) 0%, rgba(255, 180, 220, 0) 60%), radial-gradient(ellipse at 40% 60%, rgba(180, 200, 255, 0.2) 0%, rgba(180, 200, 255, 0) 70%); filter: blur(40px); border-radius: 50%; z-index: -1; }
@@ -111,11 +111,11 @@
     const lineSvg = document.getElementById('constellation-lines');
     
     const levels = [
-        { // Level 1
+      
             pattern: [2, 0, 3, 1],
             positions: [ {top: '30%', left: '50%'}, {top: '50%', left: '70%'}, {top: '70%', left: '50%'}, {top: '50%', left: '30%'} ]
         },
-        { // Level 2
+        { 
             pattern: [4, 0, 2, 1, 3],
             positions: [ {top: '25%', left: '50%'}, {top: '45%', left: '35%'}, {top: '45%', left: '65%'}, {top: '70%', left: '40%'}, {top: '70%', left: '60%'} ]
         }
@@ -129,7 +129,7 @@
     function initConstellationGame() {
         instructions.textContent = `Level ${currentLevel + 1}`;
         
-        // Clear old stars and lines
+        
         starElements.forEach(star => star.remove());
         starElements.length = 0;
         lineSvg.innerHTML = '';
@@ -189,7 +189,7 @@
             userClickPattern.push(clickedId);
             event.target.classList.add('success');
             
-            // Draw line to previous star
+           
             if (currentStep > 0) {
                 const prevStarId = userClickPattern[currentStep - 1];
                 const prevStar = starElements.find(s => parseInt(s.dataset.id) === prevStarId);
@@ -229,9 +229,9 @@
             instructions.textContent = `Level ${currentLevel + 1} Clear!`;
             successSound.play();
             currentLevel++;
-            setTimeout(initConstellationGame, 2000); // Start next level
+            setTimeout(initConstellationGame, 2000); 
         } else {
-            winGame(); // All levels completed
+            winGame(); 
         }
     }
 
@@ -260,7 +260,7 @@
         }, 400);
     });
     
-    // Starfield Logic (condensed for brevity)
+    
     const starfield = document.getElementById('starfield');
     const ctx = starfield.getContext('2d');
     function resizeCanvas() { starfield.width = window.innerWidth; starfield.height = window.innerHeight; }
